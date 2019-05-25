@@ -120,7 +120,7 @@ public void Jogar() {
 
 	
 	//Lista para gerar carta aleatória
-    List<Integer> givenList = Arrays.asList(1, 3, 9, 12, 0);
+    List<Integer> givenList = Arrays.asList(1, 3, 9, 12, 0, 13);
 
 		JogoDeCartas tmp, tmp2;
 		tmp = inicio;
@@ -163,21 +163,38 @@ public void Jogar() {
 		    	
 		    switch (carta) {
 		    
-		    //(carta 0, que equivale ao As) que, caso o jogador a tire, fica impossibilitado de jogar por 3 rodadas.
+		    //(carta 0, que equivale ao As) que, caso o jogador a tire fica impossibilitado de jogar por 3 rodadas.
 		    case 0:
-		    	
-		   
+		    		   
 		    tmp.setBanido(3);	
 		    System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 0, e foi banido por 3 rodadas!");
 		   
 		    break;
 		    
 	        //Pula o próximo jogador e passa a vez para o seguinte. 
-			    case 1:
+			case 1:
 			    	
 			   pular1 = 1;
 			   System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
 			    break;
+			    
+		    //caso o jogador tire a carta 13 (equivalente ao Rei), ele pode escolher quantos jogadores devem ser pulados para selecionar o novo jogador da rodada.
+			case 13:
+			
+				Random ran = new Random();
+				int random = ran.nextInt(9) + 2;
+				int i = 0;
+				while(i <= (random - 1)) {
+				if(sentido == 0) {
+				tmp = tmp.getProximo();	
+				}else {
+				tmp = tmp.getAnterior();		
+				}
+				i++;
+				}				
+			  System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 13 e decidiu pular "+random+" jogadores!");
+				
+			   break;
 			   
             
             //Inverte o sentido do jogo.
@@ -261,7 +278,7 @@ public void Jogar() {
 			
 		//Se o jogador tirou a carta 2 pula mais 1
 		if(pular1 == 1) {
-			//IF pra verificar o sentido da turma
+			//IF pra verificar o sentido da roda
 		    if(sentido == 0) {
 			tmp = tmp.getProximo();
 		    }else {
