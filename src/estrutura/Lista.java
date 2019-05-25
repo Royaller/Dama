@@ -206,7 +206,7 @@ public void Jogar() {
 		  //Verifica se há um ganhador
 			if(resta1()) {
 				 System.out.println("\n\n----------------------------------------------------------/FIM DE JOGO/----------------------------------------------------------");				
-				System.out.println("\n ["+tmp.getElemento()+"] É O VENCEDOR!");
+				System.out.println("\n ["+tmp.getElemento()+"] É O VENCEDOR(A)!");
 				 System.out.println("----------------------------------------------------------/FIM DE JOGO/----------------------------------------------------------\n\n\n");
 				
 	     		}	
