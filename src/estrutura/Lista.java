@@ -124,7 +124,7 @@ public void Jogar() {
 
 		JogoDeCartas tmp, tmp2;
 		tmp = inicio;
-		int pular1 = 0, sentido = 0;
+		int sentido = 0;
 	
 		
 		while(!resta1()) {
@@ -174,7 +174,12 @@ public void Jogar() {
 	        //Pula o próximo jogador e passa a vez para o seguinte. 
 			case 1:
 			    	
-			   pular1 = 1;
+				//IF pra verificar o sentido da roda
+			    if(sentido == 0) {
+				tmp = tmp.getProximo();
+			    }else {
+			    tmp = tmp.getAnterior();	
+			    }
 			   System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
 			    break;
 			    
@@ -275,17 +280,7 @@ public void Jogar() {
 				 System.out.println("----------------------------------------------------------/FIM DE JOGO/----------------------------------------------------------\n\n\n");
 				
 	     		}	
-			
-		//Se o jogador tirou a carta 2 pula mais 1
-		if(pular1 == 1) {
-			//IF pra verificar o sentido da roda
-		    if(sentido == 0) {
-			tmp = tmp.getProximo();
-		    }else {
-		    tmp = tmp.getAnterior();	
-		    }
-			pular1 = 0;
-			}
+
 		}		
 	}
 		
