@@ -3,18 +3,25 @@ package estrutura;
 public class JogoDeCartas {
 	
 	private Object elemento;
+	private int banido;
 	private JogoDeCartas anterior;
 	private JogoDeCartas proximo;
 	
 	
-	
-	
-	public Object getElemento() {
-		return elemento;
+	public int getBanido() {
+		return banido;
 	}
 
 
+	public void setBanido(int banido) {
+		this.banido = banido;
+	}
 
+
+	public Object getElemento() {
+		return elemento;
+	}
+	
 
 	public void setElemento(Object elemento) {
 		this.elemento = elemento;

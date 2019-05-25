@@ -31,6 +31,7 @@ public class Lista {
 	public void inserirJogador(Object elemento) {
 		JogoDeCartas novo = new JogoDeCartas();
 		novo.setElemento(elemento);
+		novo.setBanido(0);
 		
 		//Caso especial em que a lista está vazia e ambos anterior e próximo apontam o próprio elemento
 		if(isEmpty()) {
@@ -95,6 +96,23 @@ public class Lista {
 		}while(tmp != inicio);
 		
 	}
+	
+	
+	//Método para rodar em todo fim de rodada para remover 1 de tempo de banimento
+	public void JogadoresBanidos() {
+		JogoDeCartas tmp;
+		tmp = inicio;
+		
+		do {
+			//Verifica se o jogador está banido 
+			if(tmp.getBanido() > 0) {
+			int att = tmp.getBanido() - 1;
+			tmp.setBanido(att);
+			}
+				
+		}while(tmp != inicio);
+
+	}
 
 	
 	//Método para jogar uma partida
@@ -102,7 +120,7 @@ public void Jogar() {
 
 	
 	//Lista para gerar carta aleatória
-    List<Integer> givenList = Arrays.asList(1, 3, 9, 12);
+    List<Integer> givenList = Arrays.asList(1, 3, 9, 12, 0);
 
 		JogoDeCartas tmp, tmp2;
 		tmp = inicio;
@@ -121,20 +139,46 @@ public void Jogar() {
 		    //IF pra verificar o sentido da lista
 			if(sentido == 0) {
 				System.out.print(" Sentido da roda ---> ");
+				
+				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
+				if(tmp.getProximo().getElemento() == inicio.getElemento()) {
+					JogadoresBanidos();
+				}
+				
 			}else {
 				System.out.print(" Sentido da roda <--- ");
-			}
-		    System.out.print("\n \nJogando agora: "+tmp.getElemento());
-
-		    
 				
+				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
+				if(tmp.getElemento() == inicio.getElemento()) {
+					JogadoresBanidos();
+				}
+			}
+			
+		    
+		    //Se o jogador não tiver banido da rodada ele joga
+		    if(tmp.getBanido() == 0) {
+		    
+		    System.out.print("\n \nJogando agora: "+tmp.getElemento());
+		    	
+		    	
 		    switch (carta) {
+		    
+		    //(carta 0, que equivale ao As) que, caso o jogador a tire, fica impossibilitado de jogar por 3 rodadas.
+		    case 0:
+		    	
+		   
+		    tmp.setBanido(3);	
+		    System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 0, e foi banido por 3 rodadas!");
+		   
+		    break;
+		    
 	        //Pula o próximo jogador e passa a vez para o seguinte. 
 			    case 1:
 			    	
 			   pular1 = 1;
 			   System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
 			    break;
+			   
             
             //Inverte o sentido do jogo.
 		    case 12:
@@ -194,6 +238,10 @@ public void Jogar() {
  
 		  }
 		    //Fim do SWITCH
+		   
+		    }else {
+		        System.out.println("\n\nJogador "+tmp.getElemento()+" está banido na rodada, passou a vez para o próximo!");	
+		    }
 		    
 			//Passa o turno para o próximo jogador 
 		    //if para verificar o sentido da turma
