@@ -182,9 +182,9 @@ public void Jogar() {
 			case 13:
 			
 				Random ran = new Random();
-				int random = ran.nextInt(9) + 2;
+				int random = ran.nextInt(10) + 1;
 				int i = 0;
-				while(i <= (random - 1)) {
+				while(i < random) {
 				if(sentido == 0) {
 				tmp = tmp.getProximo();	
 				}else {
