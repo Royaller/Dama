@@ -113,6 +113,16 @@ public class Lista {
 		}while(tmp != inicio);
 
 	}
+	
+	
+	public void AttBan(JogoDeCartas player) {
+		
+		if(player.getBanido() > 0) {
+		int att = player.getBanido() - 1;
+		player.setBanido(att);
+		}
+		
+	}
 
 	
 	//Método para jogar uma partida
@@ -140,18 +150,22 @@ public void Jogar() {
 			if(sentido == 0) {
 				System.out.print(" Sentido da roda ---> ");
 				
+				/*
 				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
 				if(tmp.getProximo().getElemento() == inicio.getElemento()) {
 					JogadoresBanidos();
 				}
+				*/
 				
 			}else {
 				System.out.print(" Sentido da roda <--- ");
 				
+				/*
 				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
 				if(tmp.getElemento() == inicio.getElemento()) {
 					JogadoresBanidos();
 				}
+				*/
 			}
 			
 		    
@@ -171,47 +185,53 @@ public void Jogar() {
 		   
 		    break;
 		    
-	        //Pula o próximo jogador e passa a vez para o seguinte. 
+	        //CARTA 1 - Pula o próximo jogador e passa a vez para o seguinte. 
 			case 1:
 			    	
+				System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
 				//IF pra verificar o sentido da roda
 			    if(sentido == 0) {
 				tmp = tmp.getProximo();
+				AttBan(tmp);
 			    }else {
 			    tmp = tmp.getAnterior();	
+			    AttBan(tmp);
 			    }
-			   System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
+			  
 			    break;
 			    
-		    //caso o jogador tire a carta 13 (equivalente ao Rei), ele pode escolher quantos jogadores devem ser pulados para selecionar o novo jogador da rodada.
+		    //CARTA 13 - caso o jogador tire a carta 13 (equivalente ao Rei), ele pode escolher quantos jogadores devem ser pulados para selecionar o novo jogador da rodada.
 			case 13:
 			
 				Random ran = new Random();
 				int random = ran.nextInt(10) + 1;
+				System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 13 e decidiu pular "+random+" jogadores!");
 				int i = 0;
 				while(i < random) {
 				if(sentido == 0) {
 				tmp = tmp.getProximo();	
+				AttBan(tmp);
 				}else {
-				tmp = tmp.getAnterior();		
+				tmp = tmp.getAnterior();
+				AttBan(tmp);
 				}
 				i++;
 				}				
-			  System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 13 e decidiu pular "+random+" jogadores!");
+			  
 				
 			   break;
 			   
             
-            //Inverte o sentido do jogo.
-		    case 12:
+             //CARTA 12 - Inverte o sentido do jogo.
+		     case 12:
 		    		 
-			System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 12, inverteu o sentido do jogo!");
-			if(sentido == 0) {
+			 System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 12, inverteu o sentido do jogo!");
+			 if(sentido == 0) {
 				sentido = 1;
-			}else if(sentido == 1) {
+			 }else if(sentido == 1) {
 				sentido = 0;
-			}
-	        break;
+			 }
+	         break;
 	        
             //Remove o terceiro jogador contado a partir do atual
 		    case 3:
@@ -221,14 +241,20 @@ public void Jogar() {
 			if(sentido == 0) {
 				
 		    tmp2 = tmp.getProximo();
+		    AttBan(tmp2);
 		    tmp2 = tmp2.getProximo();
+		    AttBan(tmp2);
 		    tmp2 = tmp2.getProximo();
+		    AttBan(tmp2);
 		    
 			}else {
 				
 			tmp2 = tmp.getAnterior();
+			AttBan(tmp2);
 			tmp2 = tmp2.getAnterior();
-			tmp2 = tmp2.getAnterior();	
+			AttBan(tmp2);
+			tmp2 = tmp2.getAnterior();
+			AttBan(tmp2);
 			}
 		    	    	
 		    removerJogador(tmp2.getElemento());
@@ -261,8 +287,10 @@ public void Jogar() {
 		  }
 		    //Fim do SWITCH
 		   
+		    //Avisa que o usuário está banido e atualiza o ban
 		    }else {
-		        System.out.println("\n\nJogador "+tmp.getElemento()+" está banido na rodada, passou a vez para o próximo!");	
+		        System.out.println("\n\nJogador "+tmp.getElemento()+" está banido por mais "+tmp.getBanido()+" rodada(s), passou a vez para o próximo!");
+		        AttBan(tmp);
 		    }
 		    
 			//Passa o turno para o próximo jogador 
