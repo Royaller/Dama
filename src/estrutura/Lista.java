@@ -238,23 +238,21 @@ public void Jogar() {
 		    
 			System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 3, remove o terceiro jogador contado a partir do atual!");
 		   
+			
+			//Verifica e remove o terceiro jogador dependendo do sentido
 			if(sentido == 0) {
 				
-		    tmp2 = tmp.getProximo();
-		    AttBan(tmp2);
+		    tmp2 = tmp.getProximo();		    
+		    tmp2 = tmp2.getProximo();	
 		    tmp2 = tmp2.getProximo();
-		    AttBan(tmp2);
-		    tmp2 = tmp2.getProximo();
-		    AttBan(tmp2);
+	
 		    
 			}else {
 				
-			tmp2 = tmp.getAnterior();
-			AttBan(tmp2);
+			tmp2 = tmp.getAnterior();	
+			tmp2 = tmp2.getAnterior();	
 			tmp2 = tmp2.getAnterior();
-			AttBan(tmp2);
-			tmp2 = tmp2.getAnterior();
-			AttBan(tmp2);
+
 			}
 		    	    	
 		    removerJogador(tmp2.getElemento());
