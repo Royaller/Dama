@@ -83,15 +83,15 @@ public class Jogo extends OutputStream
         		
         		//Adiciona os 10 jogadores
         		lista.inserirJogador("Thiago");
-        		lista.inserirJogador("Amanda");
+        		lista.inserirJogador("Matheus");
         		lista.inserirJogador("Gabriel");
         		lista.inserirJogador("Jeronimo");
         		lista.inserirJogador("Lorran");
-        		lista.inserirJogador("Zaiko");
-        		lista.inserirJogador("Rafael");
+        		lista.inserirJogador("Lucas");
+        		lista.inserirJogador("Rafaela");
         		lista.inserirJogador("Kenji");
         		lista.inserirJogador("Joeh");
-        		lista.inserirJogador("Luciene");
+        		lista.inserirJogador("Paula");
                 //Jogar a partida
         		lista.Jogar();
         		

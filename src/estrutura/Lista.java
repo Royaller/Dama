@@ -97,8 +97,9 @@ public class Lista {
 		
 	}
 	
-	
-	//Método para rodar em todo fim de rodada para remover 1 de tempo de banimento
+
+	/*Método para rodar em todo fim de rodada para remover 1 de tempo de banimento
+	 
 	public void JogadoresBanidos() {
 		JogoDeCartas tmp;
 		tmp = inicio;
@@ -112,9 +113,10 @@ public class Lista {
 				
 		}while(tmp != inicio);
 
-	}
+	} */
 	
 	
+	//Método para atualizar o ban de um jogador se o mesmo tiver banido
 	public void AttBan(JogoDeCartas player) {
 		
 		if(player.getBanido() > 0) {
@@ -125,8 +127,8 @@ public class Lista {
 	}
 
 	
-	//Método para jogar uma partida
-public void Jogar() {
+    //Método para jogar uma partida
+    public void Jogar() {
 
 	
 	//Lista para gerar carta aleatória
@@ -148,7 +150,7 @@ public void Jogar() {
 		    exibirJogadores();
 		    //IF pra verificar o sentido da lista
 			if(sentido == 0) {
-				System.out.print(" Sentido da roda ---> ");
+				System.out.print(" | Sentido da roda ---> | ");
 				
 				/*
 				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
@@ -158,7 +160,7 @@ public void Jogar() {
 				*/
 				
 			}else {
-				System.out.print(" Sentido da roda <--- ");
+				System.out.print(" | Sentido da roda <--- | ");
 				
 				/*
 				//Ultimo jogada antes de acabar a rodada e atualiza os jogadores banidos
@@ -189,8 +191,9 @@ public void Jogar() {
 			case 1:
 			    	
 				System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 1, pula o próximo jogador a pessa a vez para o seguinte!");
+				
 				//IF pra verificar o sentido da roda
-			    if(sentido == 0) {
+				if(sentido == 0) {
 				tmp = tmp.getProximo();
 				AttBan(tmp);
 			    }else {
@@ -203,9 +206,13 @@ public void Jogar() {
 		    //CARTA 13 - caso o jogador tire a carta 13 (equivalente ao Rei), ele pode escolher quantos jogadores devem ser pulados para selecionar o novo jogador da rodada.
 			case 13:
 			
+				//Gera um número aleatório de 1 a 10
 				Random ran = new Random();
 				int random = ran.nextInt(10) + 1;
 				System.out.println("\n\n"+tmp.getElemento()+" tirou a carta 13 e decidiu pular "+random+" jogadores!");
+				
+		
+				//Pula a quantidade de jogadores tirada
 				int i = 0;
 				while(i < random) {
 				if(sentido == 0) {
@@ -216,9 +223,7 @@ public void Jogar() {
 				AttBan(tmp);
 				}
 				i++;
-				}				
-			  
-				
+				}								
 			   break;
 			   
             
@@ -240,21 +245,15 @@ public void Jogar() {
 		   
 			
 			//Verifica e remove o terceiro jogador dependendo do sentido
-			if(sentido == 0) {
-				
+			if(sentido == 0) {				
 		    tmp2 = tmp.getProximo();		    
-		    tmp2 = tmp2.getProximo();	
-		    tmp2 = tmp2.getProximo();
-	
-		    
-			}else {
-				
+		    tmp2 = tmp2.getProximo();			    
+			}else {				
 			tmp2 = tmp.getAnterior();	
 			tmp2 = tmp2.getAnterior();	
-			tmp2 = tmp2.getAnterior();
-
 			}
-		    	    	
+		    
+			//Remove o jogador
 		    removerJogador(tmp2.getElemento());
 	        break;
 	        
@@ -287,12 +286,14 @@ public void Jogar() {
 		   
 		    //Avisa que o usuário está banido e atualiza o ban
 		    }else {
-		        System.out.println("\n\nJogador "+tmp.getElemento()+" está banido por mais "+tmp.getBanido()+" rodada(s), passou a vez para o próximo!");
+		    	
+		        System.out.println("\n\nJogador "+tmp.getElemento()+" está banido por "+tmp.getBanido()+" rodada(s), passou a vez para o próximo!");
 		        AttBan(tmp);
+		      
 		    }
 		    
 			//Passa o turno para o próximo jogador 
-		    //if para verificar o sentido da turma
+		    //if para verificar o sentido da roda
 		    if(sentido == 0) {
 			tmp = tmp.getProximo();
 		    }else {
@@ -304,29 +305,11 @@ public void Jogar() {
 				 System.out.println("\n\n----------------------------------------------------------/FIM DE JOGO/----------------------------------------------------------");				
 				System.out.println("\n ["+tmp.getElemento()+"] É O VENCEDOR(A)!");
 				 System.out.println("----------------------------------------------------------/FIM DE JOGO/----------------------------------------------------------\n\n\n");
-				
-	     		}	
-
-		}		
-	}
-		
-	public static void main(String[] args) {
-
-		Lista lista = new Lista();
-	
-		//Adiciona os 10 jogadores
-		lista.inserirJogador("Thiago");
-		lista.inserirJogador("Amanda");
-		lista.inserirJogador("Gabriel");
-		lista.inserirJogador("Jeronimo");
-		lista.inserirJogador("Lorran");
-		lista.inserirJogador("Zaiko");
-		lista.inserirJogador("Rafael");
-		lista.inserirJogador("Kenji");
-		lista.inserirJogador("Joeh");
-		lista.inserirJogador("Luciene");
-        //Jogar a partida
-		lista.Jogar();
-				
-	}
- }
+			       }	
+	 	
+		}
+		//Fim do while
+	   }
+       //Fim do jogar()
+      }
+       //Fim da classe
